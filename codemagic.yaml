@@ -11,25 +11,35 @@ workflows:
 
     scripts:
       - name: Flutter pub get
-        script: flutter pub get --no-swift-package-manager 2>/dev/null || flutter pub get
+        script: flutter pub get
 
       - name: Patch livekit_client null-safety bug
         script: |
           LIVEKIT_LOCAL=$(find $HOME/.pub-cache/hosted/pub.dev -name "local.dart" -path "*/livekit_client*/participant/local.dart" | head -1)
           if [ -n "$LIVEKIT_LOCAL" ]; then
-            echo "Patching $LIVEKIT_LOCAL"
             sed -i '' 's/publishOptions\.videoCodec/publishOptions!.videoCodec/g' "$LIVEKIT_LOCAL"
             sed -i '' 's/publishOptions\.degradationPreference/publishOptions!.degradationPreference/g' "$LIVEKIT_LOCAL"
-            echo "Patch applied"
+            echo "livekit patched"
           fi
 
       - name: Flutter build iOS simulator
         script: |
-          flutter build ios \
-            --simulator \
-            --debug \
-            --no-pub \
-            --no-swift-package-manager
+          flutter config --no-enable-swift-package-manager
+          flutter build ios --simulator --debug --no-pub
+
+      - name: Patch GeneratedPluginRegistrant if SPM still ran
+        script: |
+          GPR="ios/Runner/GeneratedPluginRegistrant.m"
+          if grep -q "flutter_secure_storage" "$GPR"; then
+            echo "Patching GeneratedPluginRegistrant.m to remove SPM-only imports"
+            # Remove @import lines for pods that don't support SPM
+            sed -i '' '/@import flutter_secure_storage/d' "$GPR"
+            sed -i '' '/flutter_secure_storage\/FlutterSecureStoragePlugin/d' "$GPR"
+            # Remove the registration line too
+            sed -i '' '/FlutterSecureStoragePlugin registerWithRegistrar/d' "$GPR"
+            echo "Patch done"
+            cat "$GPR"
+          fi
 
     artifacts:
       - build/ios/iphonesimulator/Runner.app
