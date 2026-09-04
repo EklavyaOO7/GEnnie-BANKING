@@ -49,7 +49,7 @@ dependencies:
   local_auth: ^2.3.0
 
   # Connectivity
-  connectivity_plus: ^6.0.0
+  connectivity_plus: ^7.0.0
 
   # Image picker
   image_picker: ^1.1.0
@@ -74,12 +74,6 @@ dependencies:
   provider: ^6.1.0
   livekit_client: ^2.5.4
   webview_flutter: ^4.10.0
-
-dependency_overrides:
-  livekit_client:
-    git:
-      url: https://github.com/livekit/client-sdk-flutter.git
-      ref: main
 
 dev_dependencies:
   flutter_test:
