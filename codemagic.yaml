@@ -19,27 +19,15 @@ workflows:
           if [ -n "$LIVEKIT_LOCAL" ]; then
             sed -i '' 's/publishOptions\.videoCodec/publishOptions!.videoCodec/g' "$LIVEKIT_LOCAL"
             sed -i '' 's/publishOptions\.degradationPreference/publishOptions!.degradationPreference/g' "$LIVEKIT_LOCAL"
-            echo "livekit patched"
+            echo "livekit patched: $LIVEKIT_LOCAL"
+          else
+            echo "livekit local.dart not found - skipping"
           fi
 
       - name: Flutter build iOS simulator
         script: |
           flutter config --no-enable-swift-package-manager
           flutter build ios --simulator --debug --no-pub
-
-      - name: Patch GeneratedPluginRegistrant if SPM still ran
-        script: |
-          GPR="ios/Runner/GeneratedPluginRegistrant.m"
-          if grep -q "flutter_secure_storage" "$GPR"; then
-            echo "Patching GeneratedPluginRegistrant.m to remove SPM-only imports"
-            # Remove @import lines for pods that don't support SPM
-            sed -i '' '/@import flutter_secure_storage/d' "$GPR"
-            sed -i '' '/flutter_secure_storage\/FlutterSecureStoragePlugin/d' "$GPR"
-            # Remove the registration line too
-            sed -i '' '/FlutterSecureStoragePlugin registerWithRegistrar/d' "$GPR"
-            echo "Patch done"
-            cat "$GPR"
-          fi
 
     artifacts:
       - build/ios/iphonesimulator/Runner.app
