@@ -24,7 +24,9 @@ workflows:
           fi
 
       - name: Flutter build iOS simulator
-        script: flutter build ios --simulator --debug --no-pub
+        script: |
+          export FLUTTER_DISABLE_SPM=true
+          flutter build ios --simulator --debug --no-pub
 
     artifacts:
       - build/ios/iphonesimulator/Runner.app
