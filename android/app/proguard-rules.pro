@@ -1,0 +1,5 @@
+-keep class com.microsoft.onnxruntime.** { *; }
+-keep class com.google.mediapipe.** { *; }
+-keep class ai.onnxruntime.** { *; }
+-dontwarn com.microsoft.onnxruntime.**
+-dontwarn com.google.mediapipe.**
