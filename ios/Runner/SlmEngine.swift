@@ -29,8 +29,16 @@ final class SlmEngine {
 
     func initialize() throws {
         embedder = try SlmEmbedder(modelsDir: modelsDir)
-        try loadMeta()
-        try openDb()
+        do {
+            try loadMeta()
+        } catch {
+            log.warn(TAG, "Meta load skipped: \(error)")
+        }
+        do {
+            try openDb()
+        } catch {
+            log.warn(TAG, "DB open skipped: \(error)")
+        }
         log.info(TAG, "SlmEngine initialized | meta=\(metaRows.count) rows")
     }
 
