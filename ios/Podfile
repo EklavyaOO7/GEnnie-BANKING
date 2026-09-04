@@ -43,9 +43,6 @@ target 'Runner' do
   # Package: LiteRTLM, version: ~> 0.1.0
   # If a CocoaPods distribution becomes available, add it here.
 
-  target 'RunnerTests' do
-    inherit! :search_paths
-  end
 end
 
 post_install do |installer|
