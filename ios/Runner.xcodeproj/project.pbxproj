@@ -17,6 +17,7 @@
 		AA1F9E7D2E8A1234005B6789 /* GemmaEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F9E7C2E8A1234005B6789 /* GemmaEngine.swift */; };
 		AA1F9E7F2E8A1234005B6789 /* SlmEmbedder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F9E7E2E8A1234005B6789 /* SlmEmbedder.swift */; };
 		AA1F9E812E8A1234005B6789 /* SlmPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F9E802E8A1234005B6789 /* SlmPlugin.swift */; };
+		AA1F9E832E8A1234005B6789 /* SlmEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA1F9E822E8A1234005B6789 /* SlmEngine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,7 @@
 		AA1F9E7C2E8A1234005B6789 /* GemmaEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GemmaEngine.swift; sourceTree = "<group>"; };
 		AA1F9E7E2E8A1234005B6789 /* SlmEmbedder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlmEmbedder.swift; sourceTree = "<group>"; };
 		AA1F9E802E8A1234005B6789 /* SlmPlugin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlmPlugin.swift; sourceTree = "<group>"; };
+		AA1F9E822E8A1234005B6789 /* SlmEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlmEngine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				AA1F9E7C2E8A1234005B6789 /* GemmaEngine.swift */,
 				AA1F9E7E2E8A1234005B6789 /* SlmEmbedder.swift */,
 				AA1F9E802E8A1234005B6789 /* SlmPlugin.swift */,
+				AA1F9E822E8A1234005B6789 /* SlmEngine.swift */,
 				1498FF2C1A3E1A2300A5BB5A /* GeneratedPluginRegistrant.m */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -222,6 +225,7 @@
 				AA1F9E7D2E8A1234005B6789 /* GemmaEngine.swift in Sources */,
 				AA1F9E7F2E8A1234005B6789 /* SlmEmbedder.swift in Sources */,
 				AA1F9E812E8A1234005B6789 /* SlmPlugin.swift in Sources */,
+				AA1F9E832E8A1234005B6789 /* SlmEngine.swift in Sources */,
 				1498FF2D1A3E1A2300A5BB5A /* GeneratedPluginRegistrant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

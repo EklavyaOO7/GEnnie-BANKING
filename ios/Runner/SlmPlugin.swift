@@ -139,13 +139,11 @@ final class SlmPlugin: NSObject {
     // MARK: - init (load GemmaEngine)
 
     private func doInit(result: @escaping FlutterResult) {
-        do {
-            log.info(TAG, "init() — loading GemmaEngine from \(modelsDir.path)")
-            if gemmaEngine == nil { gemmaEngine = GemmaEngine(modelsDir: modelsDir) }
-            let gemmaReady = gemmaEngine?.isReady ?? false
-            log.info(TAG, "init() SUCCESS | gemmaReady=\(gemmaReady)")
-            DispatchQueue.main.async { result(["gemmaReady": gemmaReady]) }
-        }
+        log.info(TAG, "init() — loading GemmaEngine from \(modelsDir.path)")
+        if gemmaEngine == nil { gemmaEngine = GemmaEngine(modelsDir: modelsDir) }
+        let gemmaReady = gemmaEngine?.isReady ?? false
+        log.info(TAG, "init() SUCCESS | gemmaReady=\(gemmaReady)")
+        DispatchQueue.main.async { result(["gemmaReady": gemmaReady]) }
     }
 
     // MARK: - initSlm

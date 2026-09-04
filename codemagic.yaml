@@ -13,16 +13,15 @@ workflows:
       - name: Flutter pub get
         script: flutter pub get
 
+      - name: Flutter precache iOS
+        script: flutter precache --ios
+
       - name: Pod install
         script: |
           cd ios
           pod install --repo-update
 
-      - name: Generate Flutter build files
-        script: |
-          flutter build ios --simulator --debug --no-pub 2>&1 || true
-
-      - name: Build with xcodebuild (simulator, no signing)
+      - name: Build iOS simulator (xcodebuild, no signing)
         script: |
           cd ios
           xcodebuild \
