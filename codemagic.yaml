@@ -1,6 +1,6 @@
 workflows:
   ios-workflow:
-    name: iOS Release Build
+    name: iOS Build
     max_build_duration: 60
     instance_type: mac_mini_m2
 
@@ -18,12 +18,12 @@ workflows:
           cd ios
           pod install --repo-update
 
-      - name: Build iOS (no codesign)
-        script: flutter build ios --release --no-codesign
+      - name: Build iOS simulator (no codesign)
+        script: |
+          flutter build ios --simulator --debug
 
     artifacts:
-      - build/ios/iphoneos/Runner.app
-      - build/ios/iphoneos/*.app
+      - build/ios/iphonesimulator/Runner.app
 
     publishing:
       email:
