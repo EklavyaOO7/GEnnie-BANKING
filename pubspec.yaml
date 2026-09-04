@@ -72,8 +72,14 @@ dependencies:
 
   # Provider for state management
   provider: ^6.1.0
-  livekit_client: 2.5.3
+  livekit_client: ^2.5.4
   webview_flutter: ^4.10.0
+
+dependency_overrides:
+  livekit_client:
+    git:
+      url: https://github.com/livekit/client-sdk-flutter.git
+      ref: main
 
 dev_dependencies:
   flutter_test:
