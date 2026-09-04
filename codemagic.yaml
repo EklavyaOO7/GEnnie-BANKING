@@ -10,7 +10,7 @@ workflows:
       cocoapods: default
 
     scripts:
-      - name: Get Flutter packages
+      - name: Flutter pub get
         script: flutter pub get
 
       - name: Pod install
@@ -18,12 +18,29 @@ workflows:
           cd ios
           pod install --repo-update
 
-      - name: Build iOS simulator (no codesign)
+      - name: Generate Flutter build files
         script: |
-          flutter build ios --simulator --debug
+          flutter build ios --simulator --debug --no-pub 2>&1 || true
+
+      - name: Build with xcodebuild (simulator, no signing)
+        script: |
+          cd ios
+          xcodebuild \
+            -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM="" \
+            EXCLUDED_ARCHS=arm64 \
+            build \
+            -derivedDataPath ../build/ios
 
     artifacts:
-      - build/ios/iphonesimulator/Runner.app
+      - build/ios/Build/Products/Debug-iphonesimulator/Runner.app
 
     publishing:
       email:
