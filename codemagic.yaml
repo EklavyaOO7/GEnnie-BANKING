@@ -13,6 +13,18 @@ workflows:
       - name: Flutter pub get
         script: flutter pub get
 
+      - name: Patch livekit_client null-safety bug
+        script: |
+          LIVEKIT_LOCAL=$(find $HOME/.pub-cache/hosted/pub.dev -name "local.dart" -path "*/livekit_client*/participant/local.dart" | head -1)
+          if [ -n "$LIVEKIT_LOCAL" ]; then
+            echo "Patching $LIVEKIT_LOCAL"
+            sed -i '' 's/publishOptions\.videoCodec/publishOptions!.videoCodec/g' "$LIVEKIT_LOCAL"
+            sed -i '' 's/publishOptions\.degradationPreference/publishOptions!.degradationPreference/g' "$LIVEKIT_LOCAL"
+            echo "Patch applied"
+          else
+            echo "livekit local.dart not found, skipping patch"
+          fi
+
       - name: Flutter precache iOS
         script: flutter precache --ios
 
