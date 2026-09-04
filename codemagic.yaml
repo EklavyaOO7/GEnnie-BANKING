@@ -21,37 +21,13 @@ workflows:
             sed -i '' 's/publishOptions\.videoCodec/publishOptions!.videoCodec/g' "$LIVEKIT_LOCAL"
             sed -i '' 's/publishOptions\.degradationPreference/publishOptions!.degradationPreference/g' "$LIVEKIT_LOCAL"
             echo "Patch applied"
-          else
-            echo "livekit local.dart not found, skipping patch"
           fi
 
-      - name: Flutter precache iOS
-        script: flutter precache --ios
-
-      - name: Pod install
-        script: |
-          cd ios
-          pod install --repo-update
-
-      - name: Build iOS simulator (xcodebuild, no signing)
-        script: |
-          cd ios
-          xcodebuild \
-            -workspace Runner.xcworkspace \
-            -scheme Runner \
-            -configuration Debug \
-            -sdk iphonesimulator \
-            -destination 'generic/platform=iOS Simulator' \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM="" \
-            EXCLUDED_ARCHS=arm64 \
-            build \
-            -derivedDataPath ../build/ios
+      - name: Flutter build iOS simulator
+        script: flutter build ios --simulator --debug --no-pub
 
     artifacts:
-      - build/ios/Build/Products/Debug-iphonesimulator/Runner.app
+      - build/ios/iphonesimulator/Runner.app
 
     publishing:
       email:
