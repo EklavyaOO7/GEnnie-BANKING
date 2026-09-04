@@ -25,11 +25,8 @@ workflows:
             echo "livekit local.dart not found, skipping patch"
           fi
 
-      - name: Generate plugin registrant
-        script: |
-          flutter precache --ios
-          cd ios
-          flutter pub get --no-pub
+      - name: Flutter precache iOS
+        script: flutter precache --ios
 
       - name: Pod install
         script: |
