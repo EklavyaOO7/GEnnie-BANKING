@@ -13,12 +13,6 @@ workflows:
       - name: Get Flutter packages
         script: flutter pub get
 
-      - name: Set Flutter iOS deployment target
-        script: |
-          cd ios
-          # Ensure Generated.xcconfig exists with correct Flutter root
-          flutter pub get
-
       - name: Pod install
         script: |
           cd ios
@@ -26,7 +20,15 @@ workflows:
 
       - name: Build iOS (no codesign)
         script: |
-          flutter build ios --release --no-codesign
+          cd ios
+          xcodebuild \
+            -workspace Runner.xcworkspace \
+            -scheme Runner \
+            -configuration Release \
+            -sdk iphoneos \
+            CODE_SIGNING_ALLOWED=NO \
+            COMPILER_INDEX_STORE_ENABLE=NO \
+            | xcpretty
 
     artifacts:
       - build/ios/iphoneos/Runner.app
