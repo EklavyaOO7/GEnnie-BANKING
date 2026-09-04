@@ -72,7 +72,7 @@ dependencies:
 
   # Provider for state management
   provider: ^6.1.0
-  livekit_client: ^2.5.4
+  livekit_client: 2.5.3
   webview_flutter: ^4.10.0
 
 dev_dependencies:
